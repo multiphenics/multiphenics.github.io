@@ -1,0 +1,48 @@
+name: "Update notebooks on Google Colab branch"
+
+on:
+  push:
+    branches:
+      - "**"
+      - "!gh-pages"
+      - "!open-in-colab-multiphenicsx"
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "0 3 * * SUN"
+
+jobs:
+  open_in_colab:
+    uses: fem-on-colab/open-in-colab-workflow/.github/workflows/workflow_call.yml@main
+    with:
+      work_directory: open_in_colab
+      notebook_pattern: "**/*.ipynb"
+      notebook_preparation: |
+        python3 -m pip install --no-dependencies git+https://github.com/multiphenics/nbvalx.git
+        git clone https://github.com/multiphenics/multiphenicsx.git
+        cd multiphenicsx
+        NO_TESTS_COLLECTED=5
+        python3 -m pytest --ipynb-action=create-notebooks --tag-collapse --work-dir=.ipynb_colab tutorials || (($?==$NO_TESTS_COLLECTED))
+        find tutorials -type d -name .ipynb_colab -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
+        rsync -avz --include "*/" --include="*.ipynb" --exclude="*" tutorials ../open_in_colab/
+      fem_on_colab_packages: |
+        fenicsx==real@current$dolfinx
+        gmsh@current
+      pip_packages: |
+        multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current
+      test_script: |
+        python3 -m pip install kaleido plotly
+        python3 -m pytest --nbval open_in_colab/tutorials
+      publish_on: github@multiphenics/multiphenics.github.io@open-in-colab-multiphenicsx
+      publish_if_repository: multiphenics/multiphenics.github.io
+
+  warn:
+    runs-on: ubuntu-latest
+    if: github.repository == 'multiphenics/multiphenics.github.io' && github.ref == 'refs/heads/main' && github.event_name == 'schedule'
+    steps:
+    - name: Warn if scheduled workflow is about to be disabled
+      uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
+      with:
+        workflow-filename: open_in_colab.yml
+        days-elapsed: 50
