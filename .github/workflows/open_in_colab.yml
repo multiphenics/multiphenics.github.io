@@ -28,8 +28,8 @@ jobs:
         find tutorials -type d -name .ipynb_colab -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
         rsync -avz --delete --include "*/" --include="*.ipynb" --exclude="*" tutorials ../open_in_colab/
       fem_on_colab_packages: |
-        fenicsx==real@current$dolfinx
         gmsh@current
+        fenicsx==real@current$dolfinx
       pip_packages: |
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current
       test_script: |
