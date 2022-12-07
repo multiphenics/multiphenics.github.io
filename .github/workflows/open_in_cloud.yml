@@ -13,6 +13,10 @@ on:
   schedule:
     - cron: "0 3 * * SUN"
   workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch on multiphenicsx repository"
+        type: string
 
 jobs:
   open_in_colab:
@@ -24,6 +28,9 @@ jobs:
         python3 -m pip install --no-dependencies git+https://github.com/multiphenics/nbvalx.git
         git clone https://github.com/multiphenics/multiphenicsx.git
         cd multiphenicsx
+        if [ -n "${{ (inputs || github.event.inputs).branch }}" ]; then
+          git checkout "${{ (inputs || github.event.inputs).branch }}"
+        fi
         NO_TESTS_COLLECTED=5
         python3 -m pytest --ipynb-action=create-notebooks --tag-collapse --work-dir=.ipynb_colab tutorials || (($?==$NO_TESTS_COLLECTED))
         find tutorials -type d -name .ipynb_colab -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
@@ -37,6 +44,33 @@ jobs:
         python3 -m pip install kaleido plotly
         python3 -m pytest --nbval open_in_colab/tutorials
       publish_on: github@multiphenics/multiphenics.github.io@open-in-colab-multiphenicsx
+      publish_if_repository: multiphenics/multiphenics.github.io
+
+  open_in_kaggle:
+    uses: fem-on-kaggle/open-in-kaggle-workflow/.github/workflows/workflow_call.yml@main
+    with:
+      work_directory: open_in_kaggle
+      notebook_pattern: "**/*.ipynb"
+      notebook_preparation: |
+        python3 -m pip install --no-dependencies git+https://github.com/multiphenics/nbvalx.git
+        git clone https://github.com/multiphenics/multiphenicsx.git
+        cd multiphenicsx
+        if [ -n "${{ (inputs || github.event.inputs).branch }}" ]; then
+          git checkout "${{ (inputs || github.event.inputs).branch }}"
+        fi
+        NO_TESTS_COLLECTED=5
+        python3 -m pytest --ipynb-action=create-notebooks --tag-collapse --work-dir=.ipynb_kaggle tutorials || (($?==$NO_TESTS_COLLECTED))
+        find tutorials -type d -name .ipynb_kaggle -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
+        rsync -avz --delete --include "*/" --include="*.ipynb" --exclude="*" tutorials ../open_in_kaggle/
+      fem_on_kaggle_packages: |
+        gmsh@current
+        fenicsx==real@current$dolfinx
+      pip_packages: |
+        multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current
+      test_script: |
+        python3 -m pip install kaleido plotly
+        python3 -m pytest --nbval open_in_kaggle/tutorials
+      publish_on: github@multiphenics/multiphenics.github.io@open-in-kaggle-multiphenicsx
       publish_if_repository: multiphenics/multiphenics.github.io
 
   warn:
