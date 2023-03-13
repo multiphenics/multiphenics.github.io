@@ -39,6 +39,7 @@ jobs:
         gmsh@current
         fenicsx==real@current$dolfinx
       pip_packages: |
+        viskex@https://github.com/viskex/viskex.git@current%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current
       test_script: |
         python3 -m pytest --nbval open_in_colab/tutorials
@@ -65,6 +66,7 @@ jobs:
         gmsh@current
         fenicsx==real@current$dolfinx
       pip_packages: |
+        viskex@https://github.com/viskex/viskex.git@current%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current
       test_script: |
         python3 -m pytest --nbval open_in_kaggle/tutorials
