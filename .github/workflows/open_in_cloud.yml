@@ -25,6 +25,7 @@ jobs:
       work_directory: open_in_colab
       notebook_pattern: "**/*.ipynb"
       notebook_preparation: |
+        apt install -y -qq libgl1-mesa-glx xvfb
         python3 -m pip install --no-dependencies git+https://github.com/multiphenics/nbvalx.git
         git clone https://github.com/multiphenics/multiphenicsx.git
         cd multiphenicsx
@@ -42,6 +43,8 @@ jobs:
         viskex@https://github.com/viskex/viskex.git@current%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current
       test_script: |
+        export DISPLAY=":99"
+        Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
         python3 -m pytest --nbval open_in_colab/tutorials
       publish_on: github@multiphenics/multiphenics.github.io@open-in-colab-multiphenicsx
       publish_if_repository: multiphenics/multiphenics.github.io
@@ -52,6 +55,7 @@ jobs:
       work_directory: open_in_kaggle
       notebook_pattern: "**/*.ipynb"
       notebook_preparation: |
+        apt install -y -qq libgl1-mesa-glx xvfb
         python3 -m pip install --no-dependencies git+https://github.com/multiphenics/nbvalx.git
         git clone https://github.com/multiphenics/multiphenicsx.git
         cd multiphenicsx
@@ -69,6 +73,8 @@ jobs:
         viskex@https://github.com/viskex/viskex.git@current%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current
       test_script: |
+        export DISPLAY=":99"
+        Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
         python3 -m pytest --nbval open_in_kaggle/tutorials
       publish_on: github@multiphenics/multiphenics.github.io@open-in-kaggle-multiphenicsx
       publish_if_repository: multiphenics/multiphenics.github.io
