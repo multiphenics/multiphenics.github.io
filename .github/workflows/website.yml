@@ -1,0 +1,186 @@
+name: "Website update"
+
+on:
+  push:
+    branches:
+      - "**"
+      - "!gh-pages"
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "0 3 * * SUN"
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch on multiphenicsx repository"
+        type: string
+      reset_github_pages:
+        description: "Reset the gh-pages branch (yes or no; default: no). Remember to set the gh-pages branch back in Settings -> Pages!"
+        type: string
+
+jobs:
+  convert_notebooks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - backend: dolfinx
+            container: dolfinx/dolfinx:nightly
+            setup_container: |
+              export DEBIAN_FRONTEND="noninteractive"
+              apt -y -qq update
+              apt install -y -qq libgl1-mesa-glx xvfb
+            notebook_pattern: |
+              "**/*.ipynb"
+      fail-fast: false
+    container:
+      image: ${{ matrix.container }}
+      options: --user root
+    steps:
+      - name: Determine which branch to checkout when cloning source repository
+        id: source_branch
+        run: |
+          if [ -n "${{ (inputs || github.event.inputs).branch }}" ]; then
+            echo "branch=${{ (inputs || github.event.inputs).branch }}" >> ${GITHUB_OUTPUT}
+          else
+            echo "branch=main" >> ${GITHUB_OUTPUT}
+          fi
+        shell: bash
+      - name: Clone source repository on the previously computed branch
+        uses: actions/checkout@v3
+        with:
+          repository: multiphenics/multiphenicsx
+          ref: ${{ steps.source_branch.outputs.branch }}
+          fetch-depth: 0
+      - name: Clone website repository on current branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          path: _website
+      - name: Setup container
+        run: |
+          ${{ matrix.setup_container }}
+          apt install -y -qq rsync
+      - name: Install multiphenicsx
+        run: python3 -m pip install .[tutorials]
+      - name: Install nbconvert and configure plotly
+        run: |
+          python3 -m pip -q install nbconvert
+          PLOTLY_INIT=$(python3 -c 'import plotly; print(plotly.__file__)')
+          echo "import plotly.offline" >> ${PLOTLY_INIT}
+          echo "plotly.offline.init_notebook_mode(connected=True)" >> ${PLOTLY_INIT}
+      - name: Copy jupyter template from website repository
+        run: |
+          jupyter --paths --json > /tmp/jupyter-paths
+          JUPYTER_SHARE=$(python3 -c 'import json; data = json.loads(open("/tmp/jupyter-paths", "r").read()); print(data["data"][-1])')
+          mkdir -p ${JUPYTER_SHARE}/nbconvert/templates
+          cp -rf _website/share/jupyter/nbconvert/templates/html/multiphenicsx ${JUPYTER_SHARE}/nbconvert/templates/
+          rm /tmp/jupyter-paths
+      - name: Convert notebooks to html
+        run: |
+          NO_TESTS_COLLECTED=5
+          python3 -m pytest --ipynb-action=create-notebooks --tag-collapse --work-dir=.ipynb_nbconvert tutorials || (($?==$NO_TESTS_COLLECTED))
+          find tutorials -type d -name .ipynb_nbconvert -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
+          NOTEBOOKS_TO_RUN=()
+          while read -r PATTERN; do
+            NOTEBOOKS_TO_RUN+=($(find tutorials -wholename $(echo ${PATTERN} | sed 's|\"||g')))
+          done <<< $(printf "%s" "${{ matrix.notebook_pattern }}")
+          mkdir -p _converted
+          export DISPLAY=":99"
+          Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
+          for NOTEBOOK in "${NOTEBOOKS_TO_RUN[@]}"; do
+            NOTEBOOK_DIRNAME=$(dirname "${NOTEBOOK}")
+            NOTEBOOK_OUTPUT_DIRNAME=${GITHUB_WORKSPACE}/_converted/${NOTEBOOK_DIRNAME}
+            NOTEBOOK_BASENAME=$(basename "${NOTEBOOK}")
+            NOTEBOOK_OUTPUT_BASENAME=${NOTEBOOK_BASENAME/.ipynb/.html}
+            pushd ${NOTEBOOK_DIRNAME}
+            VISKEX_PYVISTA_BACKEND="panel" jupyter nbconvert --to html --template multiphenicsx --execute --output-dir ${NOTEBOOK_OUTPUT_DIRNAME} ${NOTEBOOK_BASENAME}
+            popd
+            pushd ${NOTEBOOK_OUTPUT_DIRNAME}
+            sed -i "s|\"https://colab.research.google.com\"|\"https://colab.research.google.com/github/multiphenics/multiphenics.github.io/blob/open-in-colab-multiphenicsx/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
+            sed -i "s|\"https://kaggle.com\"|\"https://kaggle.com/kernels/welcome?src=https://github.com/multiphenics/multiphenics.github.io/blob/open-in-kaggle-multiphenicsx/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
+            popd
+          done
+        shell: bash
+      - name: Store converted notebooks as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: converted-notebooks-${{ matrix.backend }}
+          path: _converted
+          retention-days: 1
+
+  website:
+    runs-on: ubuntu-latest
+    needs: [convert_notebooks]
+    steps:
+      - name: Clone website repository on current branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Clone website repository on gh-pages branch
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+          path: _build/html
+      - name: Install dependencies
+        run: |
+          pip3 -q install sphinx-material sphinxcontrib-bibtex
+      - name: Download converted notebooks from artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: _converted
+      - name: Generate sphinx website
+        run: |
+          rm -rf _build/html/*
+          rsync -avh --remove-source-files _converted/converted-notebooks-*/ _build/html/
+          rm -rf _converted
+          make html
+      - name: Fix permissions
+        run: |
+          sudo chown $USER _build -R
+      - name: Clean up old Github pages branch
+        if: github.repository == 'multiphenics/multiphenics.github.io' && github.event.inputs.reset_github_pages == 'yes'
+        run: |
+          if git ls-remote origin | grep -sw gh-pages 2>&1 >/dev/null; then git push origin --delete gh-pages; fi
+      - name: Check that no tutorials have been deleted
+        run: |
+          pushd _build/html
+          if [[ $(git ls-files --deleted tutorials | wc -l) -gt 0 ]]; then
+            echo "The following tutorials have been deleted:"
+            git ls-files --deleted tutorials
+            exit 1
+          fi
+          popd
+      - name: Deploy to GitHub pages
+        if: github.repository == 'multiphenics/multiphenics.github.io' && github.ref == 'refs/heads/main'
+        run: |
+          SHA_SHORT=$(git rev-parse --short HEAD)
+          pushd _build/html
+          git config user.name "GitHub Actions"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git pull origin gh-pages
+          [ -n "$(git status --porcelain=v1 2>/dev/null)" ] && git commit -m "deploy: ${SHA_SHORT}"
+          git push origin gh-pages
+          popd
+        shell: bash
+      - name: Deploy to GitHub artifacts
+        if: github.repository == 'multiphenics/multiphenics.github.io' && github.ref != 'refs/heads/main'
+        uses: actions/upload-artifact@v3
+        with:
+          name: website
+          path: _build/html
+          retention-days: 1
+
+  warn:
+    runs-on: ubuntu-latest
+    if: github.repository == 'multiphenics/multiphenics.github.io' && github.ref == 'refs/heads/main' && github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Warn if scheduled workflow is about to be disabled
+        uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
+        with:
+          workflow-filename: website.yml
+          days-elapsed: 50
