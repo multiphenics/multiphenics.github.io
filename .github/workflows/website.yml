@@ -26,7 +26,7 @@ jobs:
       matrix:
         include:
           - backend: dolfinx
-            container: dolfinx/dolfinx:nightly
+            container: numericalpdes/base_images:fenicsx-real
             setup_container: |
               export DEBIAN_FRONTEND="noninteractive"
               apt -y -qq update
