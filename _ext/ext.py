@@ -112,11 +112,11 @@ def on_build_finished(app, exc):
     if exc is None and app.builder.format == "html":
         # Unescape at symbol
         subprocess.run(
-            "find " + app.outdir + " -type f -not -path '*/\.git/*' -exec sed -i 's/%40/@/g' {} +",
+            "find " + str(app.outdir) + " -type f -not -path '*/\.git/*' -exec sed -i 's/%40/@/g' {} +",
             shell=True)
         # Mark current page as active
         subprocess.run(
-            "find " + app.outdir + " -type f -not -path '*/\.git/*' -exec sed -i 's/"
+            "find " + str(app.outdir) + " -type f -not -path '*/\.git/*' -exec sed -i 's/"
             + '<li class="md-tabs__item"><a href="#" class="md-tabs__link">'
             + "/"
             + '<li class="md-tabs__item md-tabs__item_current"><a href="#" class="md-tabs__link">'
@@ -124,7 +124,7 @@ def on_build_finished(app, exc):
             shell=True)
         # Disable going to submenus on mobile
         subprocess.run(
-            "find " + app.outdir + " -type f -not -path '*/\.git/*' -exec sed -i 's/"
+            "find " + str(app.outdir) + " -type f -not -path '*/\.git/*' -exec sed -i 's/"
             + 'id="__toc"'
             + "/"
             + 'id="__toc_disabled"'
