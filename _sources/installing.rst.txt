@@ -23,19 +23,23 @@ and install the package by typing
 
 .. code-block:: console
 
+    cd multiphenicsx
     python3 -m pip install .[tutorials]
 
 
 Compatibility with upstream releases
 ------------------------------------
 
-**multiphenicsx** targets the :code:`main` branch of :code:`dolfinx`, which may contain API changes compared to the latest :code:`dolfinx` release. A new **multiphenicsx** version is not necessarily tagged alongside :code:`dolfinx` releases. Users willing to work with a fixed release of :code:`dolfinx` are encouraged to look for a **multiphenicsx** `commit <https://github.com/multiphenics/multiphenicsx/commits/main>`__ close to the upstream release date, and do a
+**multiphenicsx** targets the :code:`main` branch of :code:`dolfinx`, which may contain API changes compared to the latest :code:`dolfinx` release. A new **multiphenicsx** version is not necessarily tagged alongside :code:`dolfinx` releases. Users willing to work with a fixed release of :code:`dolfinx` are encouraged to install **multiphenicsx** as follows:
 
 .. code-block:: console
 
-    git checkout {commit SHA}
+    cd multiphenicsx
+    DOLFINX_VERSION=$(python3 -c 'import dolfinx; print(dolfinx.__version__)')
+    git checkout dolfinx-v${DOLFINX_VERSION}
+    python3 -m pip install .[tutorials]
 
-before installing **multiphenicsx**.
+Report missing releases to `our issue tracker <https://github.com/multiphenics/multiphenicsx/issues>`__. Note that new features added to the **multiphenicsx** :code:`main` branch are not backported.
 
 Related resources
 -----------------
