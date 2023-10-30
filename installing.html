@@ -341,7 +341,8 @@
 </div>
 <p>and install the package by typing</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd multiphenicsx</span>
-<span class="go">python3 -m pip install .[tutorials]</span>
+<span class="go">python3 -m pip install scikit-build-core[pyproject]</span>
+<span class="go">python3 -m pip install --check-build-dependencies --no-build-isolation .[tutorials]</span>
 </pre></div>
 </div>
 </section>
@@ -351,7 +352,12 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd multiphenicsx</span>
 <span class="go">DOLFINX_VERSION=$(python3 -c 'import dolfinx; print(dolfinx.__version__)')</span>
 <span class="go">git checkout dolfinx-v${DOLFINX_VERSION}</span>
-<span class="go">python3 -m pip install .[tutorials]</span>
+<span class="go">if [ -f setup.cfg ]; then</span>
+<span class="go">    python3 -m pip install .[tutorials]</span>
+<span class="go">else</span>
+<span class="go">    python3 -m pip install scikit-build-core[pyproject]</span>
+<span class="go">    python3 -m pip install --check-build-dependencies --no-build-isolation .[tutorials]</span>
+<span class="go">fi</span>
 </pre></div>
 </div>
 <p>Report missing releases to <a class="reference external" href="https://github.com/multiphenics/multiphenicsx/issues">our issue tracker</a>. Note that new features added to the <strong>multiphenicsx</strong> <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch are not backported.</p>
