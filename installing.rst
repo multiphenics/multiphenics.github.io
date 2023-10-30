@@ -24,7 +24,8 @@ and install the package by typing
 .. code-block:: console
 
     cd multiphenicsx
-    python3 -m pip install .[tutorials]
+    python3 -m pip install scikit-build-core[pyproject]
+    python3 -m pip install --check-build-dependencies --no-build-isolation .[tutorials]
 
 
 Compatibility with upstream releases
@@ -37,7 +38,12 @@ Compatibility with upstream releases
     cd multiphenicsx
     DOLFINX_VERSION=$(python3 -c 'import dolfinx; print(dolfinx.__version__)')
     git checkout dolfinx-v${DOLFINX_VERSION}
-    python3 -m pip install .[tutorials]
+    if [ -f setup.cfg ]; then
+        python3 -m pip install .[tutorials]
+    else
+        python3 -m pip install scikit-build-core[pyproject]
+        python3 -m pip install --check-build-dependencies --no-build-isolation .[tutorials]
+    fi
 
 Report missing releases to `our issue tracker <https://github.com/multiphenics/multiphenicsx/issues>`__. Note that new features added to the **multiphenicsx** :code:`main` branch are not backported.
 
