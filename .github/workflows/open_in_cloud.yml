@@ -40,7 +40,6 @@ jobs:
         fenicsx==real@current$dolfinx
       pip_packages: |
         viskex@https://github.com/viskex/viskex.git@current%multiphenicsx
-        scikit-build-core[pyproject]$%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current£--check-build-dependencies --no-build-isolation
       test_script: |
         apt install -y -qq libgl1-mesa-glx xvfb
@@ -71,7 +70,6 @@ jobs:
         fenicsx==real@current$dolfinx
       pip_packages: |
         viskex@https://github.com/viskex/viskex.git@current%multiphenicsx
-        scikit-build-core[pyproject]$%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current£--check-build-dependencies --no-build-isolation
       test_script: |
         apt install -y -qq libgl1-mesa-glx xvfb
