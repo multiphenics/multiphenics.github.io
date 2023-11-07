@@ -64,7 +64,6 @@ jobs:
           apt install -y -qq rsync
       - name: Install multiphenicsx
         run: |
-          python3 -m pip install scikit-build-core[pyproject]
           python3 -m pip install --check-build-dependencies --no-build-isolation --verbose .[tutorials]
       - name: Install nbconvert and configure plotly
         run: |
