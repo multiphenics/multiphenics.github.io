@@ -24,7 +24,6 @@ and install the package by typing
 .. code-block:: console
 
     cd multiphenicsx
-    python3 -m pip install scikit-build-core[pyproject]
     python3 -m pip install --check-build-dependencies --no-build-isolation .[tutorials]
 
 
@@ -41,7 +40,6 @@ Compatibility with upstream releases
     if [ -f setup.cfg ]; then
         python3 -m pip install .[tutorials]
     else
-        python3 -m pip install scikit-build-core[pyproject]
         python3 -m pip install --check-build-dependencies --no-build-isolation .[tutorials]
     fi
 
