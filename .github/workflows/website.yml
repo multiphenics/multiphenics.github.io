@@ -48,13 +48,13 @@ jobs:
           fi
         shell: bash
       - name: Clone source repository on the previously computed branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: multiphenics/multiphenicsx
           ref: ${{ steps.source_branch.outputs.branch }}
           fetch-depth: 0
       - name: Clone website repository on current branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           path: _website
@@ -116,11 +116,11 @@ jobs:
     needs: [convert_notebooks]
     steps:
       - name: Clone website repository on current branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Clone website repository on gh-pages branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: gh-pages
           fetch-depth: 0
@@ -179,7 +179,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'multiphenics/multiphenics.github.io' && github.ref == 'refs/heads/main' && github.event_name == 'schedule'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Warn if scheduled workflow is about to be disabled
         uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
         with:
