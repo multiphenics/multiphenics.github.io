@@ -137,7 +137,7 @@ jobs:
           rm -rf _build/html/*
           rsync -avh --remove-source-files _converted/converted-notebooks-*/ _build/html/
           rm -rf _converted
-          make html
+          python3 -m sphinx -W -b html . _build/html
       - name: Fix permissions
         run: |
           sudo chown $USER _build -R
