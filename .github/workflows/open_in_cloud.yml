@@ -83,8 +83,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'multiphenics/multiphenics.github.io' && github.ref == 'refs/heads/main' && github.event_name == 'schedule'
     steps:
-    - name: Warn if scheduled workflow is about to be disabled
-      uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
-      with:
-        workflow-filename: open_in_cloud.yml
-        days-elapsed: 50
+      - name: Warn if scheduled workflow is about to be disabled
+        uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
+        with:
+          workflow-filename: open_in_cloud.yml
+          days-elapsed: 50
