@@ -141,6 +141,9 @@ jobs:
       - name: Fix permissions
         run: |
           sudo chown $USER _build -R
+      - name: Remove unnecessary .doctrees folder
+        run: |
+          rm -rf _build/html/.doctrees
       - name: Clean up old Github pages branch
         if: github.repository == 'multiphenics/multiphenics.github.io' && github.event.inputs.reset_github_pages == 'yes'
         run: |
