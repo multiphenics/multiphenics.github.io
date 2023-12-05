@@ -137,7 +137,7 @@ def on_build_finished(app, exc):
   "@context": "http://schema.org",
   "@type": "SoftwareApplication",
   "name": "multiphenicsx - easy prototyping of multiphysics problems in FEniCSx",
-  "description": "multiphenicsx is a python library that aims at providing tools in **FEniCSx** for an easy prototyping of multiphysics problems on conforming meshes. multiphenicsx is currently developed at Università Cattolica del Sacro Cuore by Dr. Francesco Ballarin in collaboration with Prof. Gianluigi Rozza's group at SISSA mathLab.",
+  "description": "multiphenicsx is a python library that aims at providing tools in **FEniCSx** for an easy prototyping of multiphysics problems on conforming meshes. multiphenicsx is currently developed at Università Cattolica del Sacro Cuore by Dr. Francesco Ballarin.",
   "keywords": "multiphenicsx, multiphenics, FEniCS, finite element, multiphysics",
   "softwareHelp": "https://multiphenics.github.io/",
   "operatingSystem": "Linux",
@@ -149,7 +149,7 @@ def on_build_finished(app, exc):
 </script>
 
 <meta property="og:title" content="multiphenicsx - easy prototyping of multiphysics problems in FEniCSx" />
-<meta property="og:description" content="multiphenicsx is a python library that aims at providing tools in **FEniCSx** for an easy prototyping of multiphysics problems on conforming meshes. multiphenicsx is currently developed at Università Cattolica del Sacro Cuore by Dr. Francesco Ballarin in collaboration with Prof. Gianluigi Rozza's group at SISSA mathLab." />
+<meta property="og:description" content="multiphenicsx is a python library that aims at providing tools in **FEniCSx** for an easy prototyping of multiphysics problems on conforming meshes. multiphenicsx is currently developed at Università Cattolica del Sacro Cuore by Dr. Francesco Ballarin." />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="multiphenicsx" />
 <meta property="og:url" content="https://multiphenics.github.io/" />
