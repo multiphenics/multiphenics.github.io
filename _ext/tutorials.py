@@ -81,7 +81,7 @@ tutorials = {
         "description": "Creating nullspace vector for pure Neumann problem with restrictions",
         "steps": {
             "-": {
-                "Modify a linear system on restriction": "tutorials/08_singular_poisson/tutorial_create_nullspace.html"
+                "Singular Poisson problem": "tutorials/08_singular_poisson/tutorial_create_nullspace.html"
             },
         },
     },
