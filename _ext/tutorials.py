@@ -77,11 +77,11 @@ tutorials = {
         },
     },
     "08": {
-        "title": "Modify a linear system on restriction",
-        "description": "Perform changes to a linear system for degrees of freedom in a restriction",
+        "title": "Singular Poisson problem",
+        "description": "Creating nullspace vector for pure Neumann problem with restrictions",
         "steps": {
             "-": {
-                "Modify a linear system on restriction": "tutorials/08_modify_matrix_on_restriction/tutorial_modify_matrix_on_restriction.html"
+                "Modify a linear system on restriction": "tutorials/08_singular_poisson/tutorial_create_nullspace.html"
             },
         },
     },
