@@ -101,6 +101,7 @@ jobs:
             pushd ${NOTEBOOK_OUTPUT_DIRNAME}
             sed -i "s|\"https://colab.research.google.com\"|\"https://colab.research.google.com/github/multiphenics/multiphenics.github.io/blob/open-in-colab-multiphenicsx/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
             sed -i "s|\"https://kaggle.com\"|\"https://kaggle.com/kernels/welcome?src=https://github.com/multiphenics/multiphenics.github.io/blob/open-in-kaggle-multiphenicsx/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
+            sed -i "s|\"https://github.com\"|\"https://github.com/multiphenics/multiphenicsx/blob/main/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
             popd
           done
         shell: bash
