@@ -67,4 +67,4 @@ Learn more about multiphenicsx
 License
 -------
 
-Like all core **FEniCS** components, **multiphenicsx** is freely available under the GNU LGPL, version 3.
+Like all core **FEniCSx** components, **multiphenicsx** is freely available under the GNU LGPL, version 3.

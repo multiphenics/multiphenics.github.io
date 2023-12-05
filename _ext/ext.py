@@ -138,7 +138,7 @@ def on_build_finished(app, exc):
   "@type": "SoftwareApplication",
   "name": "multiphenicsx - easy prototyping of multiphysics problems in FEniCSx",
   "description": "multiphenicsx is a python library that aims at providing tools in **FEniCSx** for an easy prototyping of multiphysics problems on conforming meshes. multiphenicsx is currently developed at Università Cattolica del Sacro Cuore by Dr. Francesco Ballarin.",
-  "keywords": "multiphenicsx, multiphenics, FEniCS, finite element, multiphysics",
+  "keywords": "multiphenicsx, multiphenics, FEniCSx, FEniCS, finite element, multiphysics",
   "softwareHelp": "https://multiphenics.github.io/",
   "operatingSystem": "Linux",
   "applicationCategory": "Simulation",
