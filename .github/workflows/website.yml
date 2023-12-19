@@ -96,7 +96,7 @@ jobs:
             NOTEBOOK_BASENAME=$(basename "${NOTEBOOK}")
             NOTEBOOK_OUTPUT_BASENAME=${NOTEBOOK_BASENAME/.ipynb/.html}
             pushd ${NOTEBOOK_DIRNAME}
-            VISKEX_PYVISTA_BACKEND="panel" jupyter nbconvert --to html --template multiphenicsx --execute --output-dir ${NOTEBOOK_OUTPUT_DIRNAME} ${NOTEBOOK_BASENAME}
+            VISKEX_PYVISTA_BACKEND="html" jupyter nbconvert --to html --template multiphenicsx --execute --output-dir ${NOTEBOOK_OUTPUT_DIRNAME} ${NOTEBOOK_BASENAME}
             popd
             pushd ${NOTEBOOK_OUTPUT_DIRNAME}
             sed -i "s|\"https://colab.research.google.com\"|\"https://colab.research.google.com/github/multiphenics/multiphenics.github.io/blob/open-in-colab-multiphenicsx/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
