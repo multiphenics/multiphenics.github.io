@@ -10,10 +10,21 @@ Prerequisites
 
 Installation requirements are automatically handled during the setup.
 
-Installation and usage
-----------------------
+Determining if the DOLFINx installation is a development version or a release
+-----------------------------------------------------------------------------
 
-Simply clone the **multiphenicsx** public repository:
+Run the following command
+
+.. code-block:: console
+
+    python3 -c 'import importlib.metadata; print(importlib.metadata.version("fenics-dolfinx"))'
+
+If the resulting text output contains :code:`dev`, then the DOLFINx installation is a development version, otherwise it is a release.
+
+Installation against DOLFINx development version
+------------------------------------------------
+
+Clone the **multiphenicsx** public repository
 
 .. code-block:: console
 
@@ -26,11 +37,18 @@ and install the package by typing
     cd multiphenicsx
     python3 -m pip install --check-build-dependencies --no-build-isolation .[tutorials]
 
+Installation against DOLFINx releases
+-------------------------------------
 
-Compatibility with upstream releases
-------------------------------------
+The :code:`main` branch **multiphenicsx** targets the :code:`main` branch of :code:`dolfinx`, which may contain API changes compared to the latest :code:`dolfinx` release. A new **multiphenicsx** version is not necessarily tagged alongside :code:`dolfinx` releases. Users willing to work with a fixed release of :code:`dolfinx` are encouraged to install **multiphenicsx** as follows.
 
-**multiphenicsx** targets the :code:`main` branch of :code:`dolfinx`, which may contain API changes compared to the latest :code:`dolfinx` release. A new **multiphenicsx** version is not necessarily tagged alongside :code:`dolfinx` releases. Users willing to work with a fixed release of :code:`dolfinx` are encouraged to install **multiphenicsx** as follows:
+Clone the **multiphenicsx** public repository
+
+.. code-block:: console
+
+    git clone https://github.com/multiphenics/multiphenicsx.git
+
+and install the package by typing
 
 .. code-block:: console
 
