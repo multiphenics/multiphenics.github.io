@@ -66,7 +66,7 @@
     <link rel="stylesheet" type="text/css" href="_static/material.css?v=79c92029" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-dropdown/2.0.3/jquery.dropdown.min.css" />
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Pangolin" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e4462440" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=31b9fb36" />
     <script src="_static/documentation_options.js?v=5929fcd5"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
@@ -250,9 +250,11 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#prerequisites" class="md-nav__link">Prerequisites</a>
         </li>
-        <li class="md-nav__item"><a href="#installation-and-usage" class="md-nav__link">Installation and usage</a>
+        <li class="md-nav__item"><a href="#determining-if-the-dolfinx-installation-is-a-development-version-or-a-release" class="md-nav__link">Determining if the DOLFINx installation is a development version or a release</a>
         </li>
-        <li class="md-nav__item"><a href="#compatibility-with-upstream-releases" class="md-nav__link">Compatibility with upstream releases</a>
+        <li class="md-nav__item"><a href="#installation-against-dolfinx-development-version" class="md-nav__link">Installation against DOLFINx development version</a>
+        </li>
+        <li class="md-nav__item"><a href="#installation-against-dolfinx-releases" class="md-nav__link">Installation against DOLFINx releases</a>
         </li>
         <li class="md-nav__item"><a href="#related-resources" class="md-nav__link">Related resources</a>
         </li></ul>
@@ -305,9 +307,11 @@
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#prerequisites" class="md-nav__link">Prerequisites</a>
         </li>
-        <li class="md-nav__item"><a href="#installation-and-usage" class="md-nav__link">Installation and usage</a>
+        <li class="md-nav__item"><a href="#determining-if-the-dolfinx-installation-is-a-development-version-or-a-release" class="md-nav__link">Determining if the DOLFINx installation is a development version or a release</a>
         </li>
-        <li class="md-nav__item"><a href="#compatibility-with-upstream-releases" class="md-nav__link">Compatibility with upstream releases</a>
+        <li class="md-nav__item"><a href="#installation-against-dolfinx-development-version" class="md-nav__link">Installation against DOLFINx development version</a>
+        </li>
+        <li class="md-nav__item"><a href="#installation-against-dolfinx-releases" class="md-nav__link">Installation against DOLFINx releases</a>
         </li>
         <li class="md-nav__item"><a href="#related-resources" class="md-nav__link">Related resources</a>
         </li></ul>
@@ -333,28 +337,41 @@
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
 <p>Installation requirements are automatically handled during the setup.</p>
 </section>
-<section id="installation-and-usage">
-<h2 id="installation-and-usage">Installation and usage<a class="headerlink" href="#installation-and-usage" title="Link to this heading">¶</a></h2>
-<p>Simply clone the <strong>multiphenicsx</strong> public repository:</p>
+<section id="determining-if-the-dolfinx-installation-is-a-development-version-or-a-release">
+<h2 id="determining-if-the-dolfinx-installation-is-a-development-version-or-a-release">Determining if the DOLFINx installation is a development version or a release<a class="headerlink" href="#determining-if-the-dolfinx-installation-is-a-development-version-or-a-release" title="Link to this heading">¶</a></h2>
+<p>Run the following command</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python3 -c 'import importlib.metadata; print(importlib.metadata.version("fenics-dolfinx"))'</span>
+</pre></div>
+</div>
+<p>If the resulting text output contains <code class="code docutils literal notranslate"><span class="pre">dev</span></code>, then the DOLFINx installation is a development version, otherwise it is a release.</p>
+</section>
+<section id="installation-against-dolfinx-development-version">
+<h2 id="installation-against-dolfinx-development-version">Installation against DOLFINx development version<a class="headerlink" href="#installation-against-dolfinx-development-version" title="Link to this heading">¶</a></h2>
+<p>Clone the <strong>multiphenicsx</strong> public repository</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/multiphenics/multiphenicsx.git</span>
 </pre></div>
 </div>
 <p>and install the package by typing</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd multiphenicsx</span>
-<span class="go">python3 -m pip install --check-build-dependencies --no-build-isolation .[tutorials]</span>
+<span class="go">python3 -m pip install --check-build-dependencies --no-build-isolation '.[tutorials]'</span>
 </pre></div>
 </div>
 </section>
-<section id="compatibility-with-upstream-releases">
-<h2 id="compatibility-with-upstream-releases">Compatibility with upstream releases<a class="headerlink" href="#compatibility-with-upstream-releases" title="Link to this heading">¶</a></h2>
-<p><strong>multiphenicsx</strong> targets the <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch of <code class="code docutils literal notranslate"><span class="pre">dolfinx</span></code>, which may contain API changes compared to the latest <code class="code docutils literal notranslate"><span class="pre">dolfinx</span></code> release. A new <strong>multiphenicsx</strong> version is not necessarily tagged alongside <code class="code docutils literal notranslate"><span class="pre">dolfinx</span></code> releases. Users willing to work with a fixed release of <code class="code docutils literal notranslate"><span class="pre">dolfinx</span></code> are encouraged to install <strong>multiphenicsx</strong> as follows:</p>
+<section id="installation-against-dolfinx-releases">
+<h2 id="installation-against-dolfinx-releases">Installation against DOLFINx releases<a class="headerlink" href="#installation-against-dolfinx-releases" title="Link to this heading">¶</a></h2>
+<p>The <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch <strong>multiphenicsx</strong> targets the <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch of <code class="code docutils literal notranslate"><span class="pre">dolfinx</span></code>, which may contain API changes compared to the latest <code class="code docutils literal notranslate"><span class="pre">dolfinx</span></code> release. A new <strong>multiphenicsx</strong> version is not necessarily tagged alongside <code class="code docutils literal notranslate"><span class="pre">dolfinx</span></code> releases. Users willing to work with a fixed release of <code class="code docutils literal notranslate"><span class="pre">dolfinx</span></code> are encouraged to install <strong>multiphenicsx</strong> as follows.</p>
+<p>Clone the <strong>multiphenicsx</strong> public repository</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/multiphenics/multiphenicsx.git</span>
+</pre></div>
+</div>
+<p>and install the package by typing</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd multiphenicsx</span>
 <span class="go">DOLFINX_VERSION=$(python3 -c 'import dolfinx; print(dolfinx.__version__)')</span>
 <span class="go">git checkout dolfinx-v${DOLFINX_VERSION}</span>
 <span class="go">if [ -f setup.cfg ]; then</span>
-<span class="go">    python3 -m pip install .[tutorials]</span>
+<span class="go">    python3 -m pip install '.[tutorials]'</span>
 <span class="go">else</span>
-<span class="go">    python3 -m pip install --check-build-dependencies --no-build-isolation .[tutorials]</span>
+<span class="go">    python3 -m pip install --check-build-dependencies --no-build-isolation '.[tutorials]'</span>
 <span class="go">fi</span>
 </pre></div>
 </div>
