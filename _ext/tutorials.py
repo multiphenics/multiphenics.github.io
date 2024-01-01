@@ -29,22 +29,19 @@ tutorials = {
         },
     },
     "04": {
-        "title": "Inf-sup constant for a Stokes problem",
-        "description": "Comparing standard assembly with mixed function spaces to block assembly for an eigenvalue problem",
+        "title": "Eigenvalue problems",
+        "description": "A collection of tutorials concerning the computation of eigenvalues and inf-sup constants",
         "steps": {
-            "-": {
-                "Inf-sup constant for a Stokes problem": "tutorials/04_infsup_stokes/tutorial_infsup_stokes.html"
+            "Several tutorials": {
+                "First eigenvalue of the Laplacian with Dirichlet BCs": "tutorials/04_eigenvalue_problems/tutorial_eigenvalue_laplacian.html",
+                "Inf-sup constant for a Stokes problem": "tutorials/04_eigenvalue_problems/tutorial_infsup_stokes.html",
+                "Inf-sup constant for a Lagrange multiplier problem": "tutorials/04_eigenvalue_problems/tutorial_infsup_lagrange_multipliers.html"
             },
         },
     },
     "05": {
-        "title": "Inf-sup constant for a Lagrange multiplier problem",
-        "description": "Computation of the inf-sup constant for the linear problem of tutorial 03",
-        "steps": {
-            "-": {
-                "Inf-sup constant for a Lagrange multiplier problem": "tutorials/05_infsup_lagrange_multipliers/tutorial_infsup_lagrange_multipliers.html"
-            },
-        },
+        "title": "(unused)",
+        "description": "(former tutorial 05 was merged with tutorial 04)"
     },
     "06": {
         "title": "Optimal control problems",
