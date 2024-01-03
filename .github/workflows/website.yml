@@ -30,7 +30,7 @@ jobs:
             setup_container: |
               export DEBIAN_FRONTEND="noninteractive"
               apt update -y -q
-              apt install -y -qq libgl1-mesa-glx xvfb
+              apt install -y -qq xvfb
             notebook_pattern: |
               "**/*.ipynb"
       fail-fast: false
