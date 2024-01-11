@@ -96,8 +96,8 @@ jobs:
             VISKEX_PYVISTA_BACKEND="html" jupyter nbconvert --to html --template multiphenicsx --execute --output-dir ${NOTEBOOK_OUTPUT_DIRNAME} ${NOTEBOOK_BASENAME}
             popd
             pushd ${NOTEBOOK_OUTPUT_DIRNAME}
-            sed -i "s|\"https://colab.research.google.com\"|\"https://colab.research.google.com/github/multiphenics/multiphenics.github.io/blob/open-in-colab-multiphenicsx/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
-            sed -i "s|\"https://kaggle.com\"|\"https://kaggle.com/kernels/welcome?src=https://github.com/multiphenics/multiphenics.github.io/blob/open-in-kaggle-multiphenicsx/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
+            sed -i "s|\"https://colab.research.google.com\"|\"https://colab.research.google.com/github/multiphenics/multiphenics.github.io/blob/open-in-colab/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
+            sed -i "s|\"https://kaggle.com\"|\"https://kaggle.com/kernels/welcome?src=https://github.com/multiphenics/multiphenics.github.io/blob/open-in-kaggle/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
             sed -i "s|\"https://github.com\"|\"https://github.com/multiphenics/multiphenicsx/blob/main/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}
             popd
           done

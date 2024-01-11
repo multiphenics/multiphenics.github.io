@@ -5,8 +5,8 @@ on:
     branches:
       - "**"
       - "!gh-pages"
-      - "!open-in-colab-multiphenicsx"
-      - "!open-in-kaggle-multiphenicsx"
+      - "!open-in-colab"
+      - "!open-in-kaggle"
   pull_request:
     branches:
       - main
@@ -46,7 +46,7 @@ jobs:
         export DISPLAY=":99"
         Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
         python3 -m pytest --nbval open_in_colab/tutorials
-      publish_on: github@multiphenics/multiphenics.github.io@open-in-colab-multiphenicsx
+      publish_on: github@multiphenics/multiphenics.github.io@open-in-colab
       publish_if_repository: multiphenics/multiphenics.github.io
 
   open_in_kaggle:
@@ -76,7 +76,7 @@ jobs:
         export DISPLAY=":99"
         Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
         python3 -m pytest --nbval open_in_kaggle/tutorials
-      publish_on: github@multiphenics/multiphenics.github.io@open-in-kaggle-multiphenicsx
+      publish_on: github@multiphenics/multiphenics.github.io@open-in-kaggle
       publish_if_repository: multiphenics/multiphenics.github.io
 
   warn:
