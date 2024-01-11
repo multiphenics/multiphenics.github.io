@@ -25,7 +25,7 @@ jobs:
       work_directory: open_in_colab
       notebook_pattern: "**/*.ipynb"
       notebook_preparation: |
-        python3 -m pip install --no-dependencies nbvalx
+        python3 -m pip install --no-dependencies nbvalx simpleeval
         git clone https://github.com/multiphenics/multiphenicsx.git
         cd multiphenicsx
         if [ -n "${{ (inputs || github.event.inputs).branch }}" ]; then
@@ -55,7 +55,7 @@ jobs:
       work_directory: open_in_kaggle
       notebook_pattern: "**/*.ipynb"
       notebook_preparation: |
-        python3 -m pip install --no-dependencies nbvalx
+        python3 -m pip install --no-dependencies nbvalx simpleeval
         git clone https://github.com/multiphenics/multiphenicsx.git
         cd multiphenicsx
         if [ -n "${{ (inputs || github.event.inputs).branch }}" ]; then
