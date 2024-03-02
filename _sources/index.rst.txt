@@ -4,7 +4,7 @@ multiphenicsx
     :description lang=en:
         multiphenicsx is a python library that aims at providing tools in FEniCSx for an easy prototyping of
         multiphysics problems on conforming meshes. multiphenicsx is currently developed at Università Cattolica
-        del Sacro Cuore by Dr. Francesco Ballarin.
+        del Sacro Cuore by Prof. Francesco Ballarin.
 
 
 .. image:: _static/images/github-logo.png
@@ -35,7 +35,7 @@ Description
 Authors
 ------------------------
 
-**multiphenicsx** is currently developed and maintained at `Università Cattolica del Sacro Cuore <https://www.unicatt.it/>`__ by `Dr. Francesco Ballarin <https://www.francescoballarin.it>`__.
+**multiphenicsx** is currently developed and maintained at `Università Cattolica del Sacro Cuore <https://www.unicatt.it/>`__ by `Prof. Francesco Ballarin <https://www.francescoballarin.it>`__.
 
 Timeline and funding
 ------------------------
