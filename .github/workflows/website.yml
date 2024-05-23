@@ -31,6 +31,7 @@ jobs:
               export DEBIAN_FRONTEND="noninteractive"
               apt update -y -q
               apt install -y -qq xvfb
+              rm /usr/lib/python3.*/EXTERNALLY-MANAGED
             notebook_pattern: |
               "**/*.ipynb"
       fail-fast: false
