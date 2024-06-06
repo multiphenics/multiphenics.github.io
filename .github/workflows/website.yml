@@ -31,6 +31,9 @@ jobs:
               export DEBIAN_FRONTEND="noninteractive"
               apt update -y -q
               apt install -y -qq xvfb
+              cd /dolfinx-env/lib/python3.12/site-packages/nanobind/
+              wget https://github.com/wjakob/nanobind/commit/20b06573995495c528d4acd75bda7f0430789dd8.diff
+              patch -p1 < 20b06573995495c528d4acd75bda7f0430789dd8.diff
             notebook_pattern: |
               "**/*.ipynb"
       fail-fast: false
