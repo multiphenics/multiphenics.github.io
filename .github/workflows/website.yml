@@ -67,7 +67,7 @@ jobs:
           python3 -m pip install --check-build-dependencies --no-build-isolation --verbose .[tutorials]
       - name: Install nbconvert
         run: |
-          python3 -m pip -q install nbconvert
+          python3 -m pip install -q nbconvert
       - name: Copy jupyter template from website repository
         run: |
           jupyter --paths --json > /tmp/jupyter-paths
@@ -125,7 +125,7 @@ jobs:
           path: _build/html
       - name: Install dependencies
         run: |
-          pip3 -q install sphinx-material sphinxcontrib-bibtex
+          python3 -m pip install --break-system-packages -q sphinx-material sphinxcontrib-bibtex
       - name: Download converted notebooks from artifacts
         uses: actions/download-artifact@v4
         with:
