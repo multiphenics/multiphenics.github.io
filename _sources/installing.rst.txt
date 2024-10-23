@@ -41,7 +41,7 @@ and install the package by typing
 Installation against DOLFINx releases
 -------------------------------------
 
-The :code:`main` branch **multiphenicsx** targets the :code:`main` branch of :code:`dolfinx`, which may contain API changes compared to the latest :code:`dolfinx` release. A new **multiphenicsx** version is not necessarily tagged alongside :code:`dolfinx` releases. Users willing to work with a fixed release of :code:`dolfinx` are encouraged to install **multiphenicsx** as follows.
+The :code:`main` branch **multiphenicsx** targets the :code:`main` branch of :code:`DOLFINx`, which may contain API changes compared to the latest :code:`DOLFINx` release. A new **multiphenicsx** version is not necessarily tagged alongside :code:`DOLFINx` releases. Users willing to work with a fixed release of :code:`DOLFINx` are encouraged to install **multiphenicsx** as follows.
 
 Clone the **multiphenicsx** public repository
 
@@ -68,4 +68,5 @@ Related resources
 -----------------
 * Block matrix support in `DOLFINx <https://github.com/FEniCS/dolfinx>`__, either as :code:`MatNest` or monolithic matrices. In **multiphenicsx** we also support possible restriction of the unknowns to subdomains and/or boundaries.
 * Restriction support in `dolfiny <https://github.com/michalhabera/dolfiny>`__ relies on assembling tensors on the whole domain, and the restricting them to subdomains and/or boundaries. In **multiphenicsx** we directly allocate the restricted tensors, so that no unnecessary memory allocations are carried out.
+* :code:`DOLFINx >= 0.9.0` supports `mixed dimensional assembly <https://fenicsproject.org/blog/v0.9.0/#mixed-assembly>`__. The implementations of subdomain/boundary restricted variables in **multiphenicsx** is different to the one in :code:`DOLFINx`, and the two different implementations will co-exist for the foreseeable future.
 * Please contact us by `email <mailto:francesco.ballarin@unicatt.it>`__ if you have other related resources.
