@@ -9,6 +9,12 @@ Below we provide a list of publications that use **multiphenics** or **multiphen
 
 Is your publication missing? Contact us by `email <mailto:francesco.ballarin@unicatt.it>`__ to have your publication added to the list.
 
+Year 2025
+---------
+.. bibliography:: _static/bib/publications.bib
+    :list: enumerated
+    :filter: year and (year == "2025")
+
 Year 2024
 ---------
 .. bibliography:: _static/bib/publications.bib
