@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath("./_ext"))
 # -- Project information -----------------------------------------------------
 
 project = "multiphenicsx"
-copyright = "2016-2024, the multiphenicsx authors"
+copyright = "2016-2025, the multiphenicsx authors"
 author = "Francesco Ballarin"
 
 
