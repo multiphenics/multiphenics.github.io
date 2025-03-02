@@ -37,7 +37,7 @@ jobs:
         rsync -avz --delete --include "*/" --include="*.ipynb" --exclude="*" tutorials ../open_in_colab/
       fem_on_colab_packages: |
         gmsh@current
-        fenicsx==real@current$dolfinx
+        fenicsx==development-real@current$dolfinx
       pip_packages: |
         viskex@https://github.com/viskex/viskex.git@current%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current£--check-build-dependencies --no-build-isolation
@@ -67,7 +67,7 @@ jobs:
         rsync -avz --delete --include "*/" --include="*.ipynb" --exclude="*" tutorials ../open_in_kaggle/
       fem_on_kaggle_packages: |
         gmsh@current
-        fenicsx==real@current$dolfinx
+        fenicsx==development-real@current$dolfinx
       pip_packages: |
         viskex@https://github.com/viskex/viskex.git@current%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current£--check-build-dependencies --no-build-isolation --config-settings=cmake.define.CMAKE_PREFIX_PATH=${INSTALL_PREFIX}€apt update -y -q && apt install -y -qq software-properties-common wget && wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | tee /etc/apt/trusted.gpg.d/kitware.gpg >/dev/null && apt-add-repository -y "deb https://apt.kitware.com/ubuntu/ focal main" && apt install --upgrade -y cmake
