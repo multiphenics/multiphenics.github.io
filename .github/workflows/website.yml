@@ -34,9 +34,7 @@ jobs:
             notebook_pattern: |
               "**/*.ipynb"
       fail-fast: false
-    container:
-      image: ${{ matrix.container }}
-      options: --user root
+    container: ${{ matrix.container }}
     steps:
       - name: Determine which branch to checkout when cloning source repository
         id: source_branch
