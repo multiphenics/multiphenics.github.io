@@ -1,30 +1,21 @@
 tutorials = {
     "01": {
-        "title": "Block Poisson problem",
-        "description": "Gentle introduction to block systems within dolfinx",
-        "steps": {
-            "-": {
-                "Block Poisson problem": "tutorials/01_block_poisson/tutorial_block_poisson.html"
-            },
-        },
-    },
-    "02": {
-        "title": "Navier-Stokes problem",
-        "description": "Comparing standard assembly with mixed function spaces to block assembly for a nonlinear problem",
-        "steps": {
-            "-": {
-                "Navier-Stokes problem": "tutorials/02_navier_stokes/tutorial_navier_stokes.html"
-            },
-        },
-    },
-    "03": {
         "title": "Weak imposition of Dirichlet BCs by a Lagrange multiplier",
         "description": "Introduction to multiphenicsx facilities for subdomain/boundary restricted variables",
         "steps": {
             "Several tutorials": {
-                "Linear problem": "tutorials/03_lagrange_multipliers/tutorial_lagrange_multipliers_linear.html",
-                "Nonlinear problem": "tutorials/03_lagrange_multipliers/tutorial_lagrange_multipliers_nonlinear.html",
-                "Interface problem": "tutorials/03_lagrange_multipliers/tutorial_lagrange_multipliers_interface.html"
+                "Case 1: linear problem": "tutorials/01_lagrange_multipliers/tutorial_1_lagrange_multipliers_linear.html",
+                "Case 2: nonlinear problem": "tutorials/01_lagrange_multipliers/tutorial_2_lagrange_multipliers_nonlinear.html",
+                "Case 3: interface problem": "tutorials/01_lagrange_multipliers/tutorial_3_lagrange_multipliers_interface.html"
+            },
+        },
+    },
+    "02": {
+        "title": "Understanding restrictions",
+        "description": "Visualization of restrictions to subdomain/boundary for several finite element spaces",
+        "steps": {
+            "-": {
+                "Understanding restrictions": "tutorials/02_understanding_restrictions/tutorial_understanding_restrictions.html"
             },
         },
     },
@@ -33,15 +24,20 @@ tutorials = {
         "description": "A collection of tutorials concerning the computation of eigenvalues and inf-sup constants",
         "steps": {
             "Several tutorials": {
-                "First eigenvalue of the Laplacian with Dirichlet BCs": "tutorials/04_eigenvalue_problems/tutorial_eigenvalue_laplacian.html",
-                "Inf-sup constant for a Stokes problem": "tutorials/04_eigenvalue_problems/tutorial_infsup_stokes.html",
-                "Inf-sup constant for a Lagrange multiplier problem": "tutorials/04_eigenvalue_problems/tutorial_infsup_lagrange_multipliers.html"
+                "Case 1: first eigenvalue of the Laplacian with Dirichlet BCs": "tutorials/04_eigenvalue_problems/tutorial_1_eigenvalue_laplacian.html",
+                "Case 2: inf-sup constant for a Stokes problem": "tutorials/04_eigenvalue_problems/tutorial_2_infsup_stokes.html",
+                "Case 3: inf-sup constant for a Lagrange multiplier problem": "tutorials/04_eigenvalue_problems/tutorial_3_infsup_lagrange_multipliers.html"
             },
         },
     },
     "05": {
-        "title": "(unused)",
-        "description": "(former tutorial 05 was merged with tutorial 04)"
+        "title": "Singular Poisson problem",
+        "description": "Creating nullspace vector for pure Neumann problem with restrictions",
+        "steps": {
+            "-": {
+                "Singular Poisson problem": "tutorials/05_singular_poisson/tutorial_create_nullspace.html"
+            },
+        },
     },
     "06": {
         "title": "Optimal control problems",
@@ -61,24 +57,6 @@ tutorials = {
                 "Case 7a: Stokes problem with Dirichlet control": "tutorials/06_optimal_control/tutorial_7a_stokes_dirichlet_control.html",
                 "Case 7b: Stokes problem with Neumann control": "tutorials/06_optimal_control/tutorial_7b_stokes_neumann_control.html",
                 "Case 8: Navier-Stokes problem with Neumann control": "tutorials/06_optimal_control/tutorial_8_navier_stokes_neumann_control.html",
-            },
-        },
-    },
-    "07": {
-        "title": "Understanding restrictions",
-        "description": "Visualization of restrictions to subdomain/boundary for several finite element spaces",
-        "steps": {
-            "-": {
-                "Understanding restrictions": "tutorials/07_understanding_restrictions/tutorial_understanding_restrictions.html"
-            },
-        },
-    },
-    "08": {
-        "title": "Singular Poisson problem",
-        "description": "Creating nullspace vector for pure Neumann problem with restrictions",
-        "steps": {
-            "-": {
-                "Singular Poisson problem": "tutorials/08_singular_poisson/tutorial_create_nullspace.html"
             },
         },
     },
