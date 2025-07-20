@@ -25,12 +25,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - backend: dolfinx
+          - backend: dolfinx-nightly
             container: ghcr.io/fenics/dolfinx/dolfinx:nightly
-            setup_container: |
-              export DEBIAN_FRONTEND="noninteractive"
-              apt update -y -q
-              apt install -y -qq xvfb
             notebook_pattern: |
               "**/*.ipynb"
       fail-fast: false
@@ -58,8 +54,9 @@ jobs:
           path: _website
       - name: Setup container
         run: |
-          ${{ matrix.setup_container }}
-          apt install -y -qq rsync
+          export DEBIAN_FRONTEND="noninteractive"
+          apt update -y -q
+          apt install -y -qq rsync xvfb
       - name: Install multiphenicsx
         run: |
           python3 -m pip install --check-build-dependencies --no-build-isolation --verbose .[tutorials]
