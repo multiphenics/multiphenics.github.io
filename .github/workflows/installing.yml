@@ -1,0 +1,61 @@
+name: "Test instructions from installing.rst"
+
+on:
+  push:
+    branches:
+      - "**"
+      - "!gh-pages"
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "0 3 * * SUN"
+  workflow_dispatch:
+
+jobs:
+  test_dolfinx_docker:
+    runs-on: ubuntu-latest
+    container: ghcr.io/fenics/dolfinx/dolfinx:stable
+    steps:
+      - name: Install multiphenicsx build requirements
+        run: python3 -m pip install nanobind scikit-build-core[pyproject]
+      - name: Install multiphenicsx
+        run: python3 -m pip install --no-build-isolation 'multiphenicsx[tutorials]'
+
+  test_dolfinx_apt:
+    runs-on: ubuntu-latest
+    container: debian:testing
+    steps:
+      - name: Install dolfinx
+        run: |
+          apt update -y -q
+          apt install -y -qq fenicsx python3-pip
+      - name: Install multiphenicsx build requirements
+        run: apt install -y -qq python3-nanobind python3-scikit-build-core
+      - name: Install multiphenicsx
+        run: python3 -m pip install --break-system-packages --no-build-isolation 'multiphenicsx[tutorials]'
+
+  test_dolfinx_conda:
+    runs-on: ubuntu-latest
+    # This is necessary to ensure conda environment is activated in every step.
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+      - uses: conda-incubator/setup-miniconda@v3
+      - name: Install dolfinx
+        run: conda install -c conda-forge fenics-dolfinx mpich pyvista
+      - name: Install multiphenicsx build requirements
+        run: conda install -c conda-forge nanobind scikit-build-core
+      - name: Install multiphenicsx
+        run: python3 -m pip install --no-build-isolation 'multiphenicsx[tutorials]'
+
+  warn:
+    runs-on: ubuntu-latest
+    if: github.repository == 'multiphenics/multiphenics.github.io' && github.ref == 'refs/heads/main' && github.event_name == 'schedule'
+    steps:
+      - name: Warn if scheduled workflow is about to be disabled
+        uses: fem-on-colab/warn-workflow-about-to-be-disabled-action@main
+        with:
+          workflow-filename: installing.yml
+          days-elapsed: 50

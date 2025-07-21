@@ -2,67 +2,51 @@ Installation
 ============
 .. meta::
     :description lang=en:
-        Installation requirements are automatically handled during the setup.
-        Simply clone the repository and install with pip.
+        multiphenicsx is available on PyPI. Use pip extras to install all required dependencies.
 
 Prerequisites
 -------------
 
-Installation requirements are automatically handled during the setup.
+**multiphenicsx** has a few build dependencies that must be installed manually. Follow the appropriate instructions below based on how `dolfinx <https://github.com/FEniCS/dolfinx>`__ was installed.
 
-Determining if the DOLFINx installation is a development version or a release
------------------------------------------------------------------------------
+If `dolfinx` was installed via conda
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: console
 
-Run the following command
+    conda install -c conda-forge nanobind scikit-build-core
+
+If `dolfinx` was installed via apt
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: console
+
+    apt install python3-nanobind python3-scikit-build-core
+
+If `dolfinx` was installed via Docker or built from source
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: console
+
+    python3 -m pip install nanobind scikit-build-core[pyproject]
+
+Installation
+------------
+
+**multiphenicsx** is available on PyPI. Use `pip` extras to install additional dependencies needed for the tutorials.
 
 .. code-block:: console
 
-    python3 -c 'import importlib.metadata; print(importlib.metadata.version("fenics-dolfinx"))'
+    python3 -m pip install --no-build-isolation 'multiphenicsx[tutorials]'
 
-If the resulting text output contains :code:`dev`, then the DOLFINx installation is a development version, otherwise it is a release.
+Running tutorials
+-----------------
 
-Installation against DOLFINx development version
-------------------------------------------------
-
-Clone the **multiphenicsx** public repository
-
-.. code-block:: console
-
-    git clone https://github.com/multiphenics/multiphenicsx.git
-
-and install the package by typing
-
-.. code-block:: console
-
-    cd multiphenicsx
-    python3 -m pip install --check-build-dependencies --no-build-isolation '.[tutorials]'
-
-
-Installation against DOLFINx releases
--------------------------------------
-
-The :code:`main` branch **multiphenicsx** targets the :code:`main` branch of :code:`DOLFINx`, which may contain API changes compared to the latest :code:`DOLFINx` release. A new **multiphenicsx** version is not necessarily tagged alongside :code:`DOLFINx` releases. Users willing to work with a fixed release of :code:`DOLFINx` are encouraged to install **multiphenicsx** as follows.
-
-Clone the **multiphenicsx** public repository
+To run the tutorials, first clone the **multiphenicsx** repository. Then, ensure you check out the tag that corresponds to the version of **multiphenicsx** currently installed.
 
 .. code-block:: console
 
     git clone https://github.com/multiphenics/multiphenicsx.git
-
-and install the package by typing
-
-.. code-block:: console
-
     cd multiphenicsx
-    DOLFINX_VERSION=$(python3 -c 'import dolfinx; print(dolfinx.__version__)')
-    git checkout dolfinx-v${DOLFINX_VERSION}
-    if [ -f setup.cfg ]; then
-        python3 -m pip install '.[tutorials]'
-    else
-        python3 -m pip install --check-build-dependencies --no-build-isolation '.[tutorials]'
-    fi
-
-Report missing releases to `our issue tracker <https://github.com/multiphenics/multiphenicsx/issues>`__. Note that new features added to the **multiphenicsx** :code:`main` branch are not backported.
+    MULTIPHENICSX_VERSION=$(python3 -c "import multiphenicsx; print(multiphenicsx.__version__)")
+    git checkout ${MULTIPHENICSX_VERSION}
 
 Related resources
 -----------------
