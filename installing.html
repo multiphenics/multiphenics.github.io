@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Installation requirements are automatically handled during the setup. Simply clone the repository and install with pip." lang="en" name="description" xml:lang="en" />
+<meta content="multiphenicsx is available on PyPI. Use pip extras to install all required dependencies." lang="en" name="description" xml:lang="en" />
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -248,13 +248,19 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#installing--page-root" class="md-nav__link">Installation</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#prerequisites" class="md-nav__link">Prerequisites</a>
+        <li class="md-nav__item"><a href="#prerequisites" class="md-nav__link">Prerequisites</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#if-dolfinx-was-installed-via-conda" class="md-nav__link">If <cite>dolfinx</cite> was installed via conda</a>
         </li>
-        <li class="md-nav__item"><a href="#determining-if-the-dolfinx-installation-is-a-development-version-or-a-release" class="md-nav__link">Determining if the DOLFINx installation is a development version or a release</a>
+        <li class="md-nav__item"><a href="#if-dolfinx-was-installed-via-apt" class="md-nav__link">If <cite>dolfinx</cite> was installed via apt</a>
         </li>
-        <li class="md-nav__item"><a href="#installation-against-dolfinx-development-version" class="md-nav__link">Installation against DOLFINx development version</a>
+        <li class="md-nav__item"><a href="#if-dolfinx-was-installed-via-docker-or-built-from-source" class="md-nav__link">If <cite>dolfinx</cite> was installed via Docker or built from source</a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#installation-against-dolfinx-releases" class="md-nav__link">Installation against DOLFINx releases</a>
+        <li class="md-nav__item"><a href="#id1" class="md-nav__link">Installation</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-tutorials" class="md-nav__link">Running tutorials</a>
         </li>
         <li class="md-nav__item"><a href="#related-resources" class="md-nav__link">Related resources</a>
         </li></ul>
@@ -305,13 +311,19 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#installing--page-root" class="md-nav__link">Installation</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#prerequisites" class="md-nav__link">Prerequisites</a>
+        <li class="md-nav__item"><a href="#prerequisites" class="md-nav__link">Prerequisites</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#if-dolfinx-was-installed-via-conda" class="md-nav__link">If <cite>dolfinx</cite> was installed via conda</a>
         </li>
-        <li class="md-nav__item"><a href="#determining-if-the-dolfinx-installation-is-a-development-version-or-a-release" class="md-nav__link">Determining if the DOLFINx installation is a development version or a release</a>
+        <li class="md-nav__item"><a href="#if-dolfinx-was-installed-via-apt" class="md-nav__link">If <cite>dolfinx</cite> was installed via apt</a>
         </li>
-        <li class="md-nav__item"><a href="#installation-against-dolfinx-development-version" class="md-nav__link">Installation against DOLFINx development version</a>
+        <li class="md-nav__item"><a href="#if-dolfinx-was-installed-via-docker-or-built-from-source" class="md-nav__link">If <cite>dolfinx</cite> was installed via Docker or built from source</a>
+        </li></ul>
+            </nav>
         </li>
-        <li class="md-nav__item"><a href="#installation-against-dolfinx-releases" class="md-nav__link">Installation against DOLFINx releases</a>
+        <li class="md-nav__item"><a href="#id1" class="md-nav__link">Installation</a>
+        </li>
+        <li class="md-nav__item"><a href="#running-tutorials" class="md-nav__link">Running tutorials</a>
         </li>
         <li class="md-nav__item"><a href="#related-resources" class="md-nav__link">Related resources</a>
         </li></ul>
@@ -335,47 +347,42 @@
 <h1 id="installing--page-root">Installation<a class="headerlink" href="#installing--page-root" title="Link to this heading">¶</a></h1>
 <section id="prerequisites">
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">¶</a></h2>
-<p>Installation requirements are automatically handled during the setup.</p>
-</section>
-<section id="determining-if-the-dolfinx-installation-is-a-development-version-or-a-release">
-<h2 id="determining-if-the-dolfinx-installation-is-a-development-version-or-a-release">Determining if the DOLFINx installation is a development version or a release<a class="headerlink" href="#determining-if-the-dolfinx-installation-is-a-development-version-or-a-release" title="Link to this heading">¶</a></h2>
-<p>Run the following command</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python3 -c 'import importlib.metadata; print(importlib.metadata.version("fenics-dolfinx"))'</span>
+<p><strong>multiphenicsx</strong> has a few build dependencies that must be installed manually. Follow the appropriate instructions below based on how <a class="reference external" href="https://github.com/FEniCS/dolfinx">dolfinx</a> was installed.</p>
+<section id="if-dolfinx-was-installed-via-conda">
+<h3 id="if-dolfinx-was-installed-via-conda">If <cite>dolfinx</cite> was installed via conda<a class="headerlink" href="#if-dolfinx-was-installed-via-conda" title="Link to this heading">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">conda install -c conda-forge nanobind scikit-build-core</span>
 </pre></div>
 </div>
-<p>If the resulting text output contains <code class="code docutils literal notranslate"><span class="pre">dev</span></code>, then the DOLFINx installation is a development version, otherwise it is a release.</p>
 </section>
-<section id="installation-against-dolfinx-development-version">
-<h2 id="installation-against-dolfinx-development-version">Installation against DOLFINx development version<a class="headerlink" href="#installation-against-dolfinx-development-version" title="Link to this heading">¶</a></h2>
-<p>Clone the <strong>multiphenicsx</strong> public repository</p>
+<section id="if-dolfinx-was-installed-via-apt">
+<h3 id="if-dolfinx-was-installed-via-apt">If <cite>dolfinx</cite> was installed via apt<a class="headerlink" href="#if-dolfinx-was-installed-via-apt" title="Link to this heading">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">apt install python3-nanobind python3-scikit-build-core</span>
+</pre></div>
+</div>
+</section>
+<section id="if-dolfinx-was-installed-via-docker-or-built-from-source">
+<h3 id="if-dolfinx-was-installed-via-docker-or-built-from-source">If <cite>dolfinx</cite> was installed via Docker or built from source<a class="headerlink" href="#if-dolfinx-was-installed-via-docker-or-built-from-source" title="Link to this heading">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python3 -m pip install nanobind scikit-build-core[pyproject]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h2 id="id1">Installation<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<p><strong>multiphenicsx</strong> is available on PyPI. Use <cite>pip</cite> extras to install additional dependencies needed for the tutorials.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python3 -m pip install --no-build-isolation 'multiphenicsx[tutorials]'</span>
+</pre></div>
+</div>
+</section>
+<section id="running-tutorials">
+<h2 id="running-tutorials">Running tutorials<a class="headerlink" href="#running-tutorials" title="Link to this heading">¶</a></h2>
+<p>To run the tutorials, first clone the <strong>multiphenicsx</strong> repository. Then, ensure you check out the tag that corresponds to the version of <strong>multiphenicsx</strong> currently installed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/multiphenics/multiphenicsx.git</span>
+<span class="go">cd multiphenicsx</span>
+<span class="go">MULTIPHENICSX_VERSION=$(python3 -c "import multiphenicsx; print(multiphenicsx.__version__)")</span>
+<span class="go">git checkout ${MULTIPHENICSX_VERSION}</span>
 </pre></div>
 </div>
-<p>and install the package by typing</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd multiphenicsx</span>
-<span class="go">python3 -m pip install --check-build-dependencies --no-build-isolation '.[tutorials]'</span>
-</pre></div>
-</div>
-</section>
-<section id="installation-against-dolfinx-releases">
-<h2 id="installation-against-dolfinx-releases">Installation against DOLFINx releases<a class="headerlink" href="#installation-against-dolfinx-releases" title="Link to this heading">¶</a></h2>
-<p>The <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch <strong>multiphenicsx</strong> targets the <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch of <code class="code docutils literal notranslate"><span class="pre">DOLFINx</span></code>, which may contain API changes compared to the latest <code class="code docutils literal notranslate"><span class="pre">DOLFINx</span></code> release. A new <strong>multiphenicsx</strong> version is not necessarily tagged alongside <code class="code docutils literal notranslate"><span class="pre">DOLFINx</span></code> releases. Users willing to work with a fixed release of <code class="code docutils literal notranslate"><span class="pre">DOLFINx</span></code> are encouraged to install <strong>multiphenicsx</strong> as follows.</p>
-<p>Clone the <strong>multiphenicsx</strong> public repository</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/multiphenics/multiphenicsx.git</span>
-</pre></div>
-</div>
-<p>and install the package by typing</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd multiphenicsx</span>
-<span class="go">DOLFINX_VERSION=$(python3 -c 'import dolfinx; print(dolfinx.__version__)')</span>
-<span class="go">git checkout dolfinx-v${DOLFINX_VERSION}</span>
-<span class="go">if [ -f setup.cfg ]; then</span>
-<span class="go">    python3 -m pip install '.[tutorials]'</span>
-<span class="go">else</span>
-<span class="go">    python3 -m pip install --check-build-dependencies --no-build-isolation '.[tutorials]'</span>
-<span class="go">fi</span>
-</pre></div>
-</div>
-<p>Report missing releases to <a class="reference external" href="https://github.com/multiphenics/multiphenicsx/issues">our issue tracker</a>. Note that new features added to the <strong>multiphenicsx</strong> <code class="code docutils literal notranslate"><span class="pre">main</span></code> branch are not backported.</p>
 </section>
 <section id="related-resources">
 <h2 id="related-resources">Related resources<a class="headerlink" href="#related-resources" title="Link to this heading">¶</a></h2>
