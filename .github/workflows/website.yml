@@ -75,6 +75,7 @@ jobs:
           NO_TESTS_COLLECTED=5
           python3 -m pytest --ipynb-action=create-notebooks --collapse --work-dir=.ipynb_nbconvert tutorials || (($?==$NO_TESTS_COLLECTED))
           find tutorials -type d -name .ipynb_nbconvert -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
+          find tutorials -type f -name '*\[*].ipynb' -exec bash -c 'for f; do dir=$(dirname "$f"); base=$(basename "$f"); stem="${base%%[*}"; plain="$dir/$stem.ipynb"; if [ -f "$plain" ]; then rm "$plain"; fi; done' _ {} +
           NOTEBOOKS_TO_RUN=()
           while read -r PATTERN; do
             NOTEBOOKS_TO_RUN+=($(find tutorials -wholename $(echo ${PATTERN} | sed 's|\"||g')))
@@ -87,9 +88,18 @@ jobs:
             NOTEBOOK_DIRNAME=$(dirname "${NOTEBOOK}")
             NOTEBOOK_OUTPUT_DIRNAME=${GITHUB_WORKSPACE}/_converted/${NOTEBOOK_DIRNAME}
             NOTEBOOK_BASENAME=$(basename "${NOTEBOOK}")
+            NOTEBOOK_BASENAME_SAFE=$(echo "$NOTEBOOK_BASENAME" | tr '[]=' '_')
             NOTEBOOK_OUTPUT_BASENAME=${NOTEBOOK_BASENAME/.ipynb/.html}
+            NOTEBOOK_OUTPUT_BASENAME_SAFE=${NOTEBOOK_BASENAME_SAFE/.ipynb/.html}
             pushd ${NOTEBOOK_DIRNAME}
-            VISKEX_PYVISTA_BACKEND="html" jupyter nbconvert --to html --template multiphenicsx --execute --output-dir ${NOTEBOOK_OUTPUT_DIRNAME} ${NOTEBOOK_BASENAME}
+            if [ "${NOTEBOOK_BASENAME}" != "${NOTEBOOK_BASENAME_SAFE}" ]; then
+              mv "${NOTEBOOK_BASENAME}" "${NOTEBOOK_BASENAME_SAFE}"
+            fi
+            VISKEX_PYVISTA_BACKEND="html" jupyter nbconvert --to html --template multiphenicsx --execute --output-dir ${NOTEBOOK_OUTPUT_DIRNAME} ${NOTEBOOK_BASENAME_SAFE}
+            if [ "${NOTEBOOK_BASENAME}" != "${NOTEBOOK_BASENAME_SAFE}" ]; then
+              mv "${NOTEBOOK_BASENAME_SAFE}" "${NOTEBOOK_BASENAME}"
+              mv "${NOTEBOOK_OUTPUT_DIRNAME}/${NOTEBOOK_OUTPUT_BASENAME_SAFE}" "${NOTEBOOK_OUTPUT_DIRNAME}/${NOTEBOOK_OUTPUT_BASENAME}"
+            fi
             popd
             pushd ${NOTEBOOK_OUTPUT_DIRNAME}
             sed -i "s|\"https://colab.research.google.com\"|\"https://colab.research.google.com/github/multiphenics/multiphenics.github.io/blob/open-in-colab/${NOTEBOOK_DIRNAME}/${NOTEBOOK_BASENAME}\"|g" ${NOTEBOOK_OUTPUT_BASENAME}

@@ -34,7 +34,9 @@ jobs:
         NO_TESTS_COLLECTED=5
         python3 -m pytest --ipynb-action=create-notebooks --collapse --work-dir=.ipynb_colab tutorials || (($?==$NO_TESTS_COLLECTED))
         find tutorials -type d -name .ipynb_colab -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
+        find tutorials -type f -name '*\[*].ipynb' -exec bash -c 'for f; do dir=$(dirname "$f"); base=$(basename "$f"); stem="${base%%[*}"; plain="$dir/$stem.ipynb"; if [ -f "$plain" ]; then rm "$plain"; fi; done' _ {} +
         rsync -avz --delete --include "*/" --include="*.ipynb" --exclude="*" tutorials ../open_in_colab/
+        find ../open_in_colab/ -type f -name "*.ipynb" -exec bash -c 'for f; do new=${f//[\[\]=]/_}; if [[ "$f" != "$new" && ! -e "$new" ]]; then mv "$f" "$new" && ln -s "$(basename "$new")" "$f"; fi; done' _ {} +
       fem_on_colab_packages: |
         gmsh@current
         fenicsx==development-real@current$dolfinx
@@ -46,6 +48,7 @@ jobs:
         export DISPLAY=":99"
         Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
         python3 -m pytest --nbval open_in_colab/tutorials
+        find open_in_colab -type l -name "*.ipynb" -exec bash -c 'for link; do target=$(readlink -f "$link"); [[ -f "$target" ]] && rm "$link" && mv "$target" "$link"; done' _ {} +
       publish_on: github@multiphenics/multiphenics.github.io@open-in-colab
       publish_if_repository: multiphenics/multiphenics.github.io
 
@@ -64,7 +67,9 @@ jobs:
         NO_TESTS_COLLECTED=5
         python3 -m pytest --ipynb-action=create-notebooks --collapse --work-dir=.ipynb_kaggle tutorials || (($?==$NO_TESTS_COLLECTED))
         find tutorials -type d -name .ipynb_kaggle -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
+        find tutorials -type f -name '*\[*].ipynb' -exec bash -c 'for f; do dir=$(dirname "$f"); base=$(basename "$f"); stem="${base%%[*}"; plain="$dir/$stem.ipynb"; if [ -f "$plain" ]; then rm "$plain"; fi; done' _ {} +
         rsync -avz --delete --include "*/" --include="*.ipynb" --exclude="*" tutorials ../open_in_kaggle/
+        find ../open_in_kaggle/ -type f -name "*.ipynb" -exec bash -c 'for f; do new=${f//[\[\]=]/_}; if [[ "$f" != "$new" && ! -e "$new" ]]; then mv "$f" "$new" && ln -s "$(basename "$new")" "$f"; fi; done' _ {} +
       fem_on_kaggle_packages: |
         gmsh@current
         fenicsx==development-real@current$dolfinx
@@ -76,6 +81,7 @@ jobs:
         export DISPLAY=":99"
         Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
         python3 -m pytest --nbval open_in_kaggle/tutorials
+        find open_in_kaggle -type l -name "*.ipynb" -exec bash -c 'for link; do target=$(readlink -f "$link"); [[ -f "$target" ]] && rm "$link" && mv "$target" "$link"; done' _ {} +
       publish_on: github@multiphenics/multiphenics.github.io@open-in-kaggle
       publish_if_repository: multiphenics/multiphenics.github.io
 
