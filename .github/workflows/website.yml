@@ -73,7 +73,7 @@ jobs:
       - name: Convert notebooks to html
         run: |
           NO_TESTS_COLLECTED=5
-          python3 -m pytest --ipynb-action=create-notebooks --tag-collapse --work-dir=.ipynb_nbconvert tutorials || (($?==$NO_TESTS_COLLECTED))
+          python3 -m pytest --ipynb-action=create-notebooks --collapse --work-dir=.ipynb_nbconvert tutorials || (($?==$NO_TESTS_COLLECTED))
           find tutorials -type d -name .ipynb_nbconvert -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
           NOTEBOOKS_TO_RUN=()
           while read -r PATTERN; do

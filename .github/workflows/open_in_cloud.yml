@@ -32,7 +32,7 @@ jobs:
           git checkout "${{ (inputs || github.event.inputs).branch }}"
         fi
         NO_TESTS_COLLECTED=5
-        python3 -m pytest --ipynb-action=create-notebooks --tag-collapse --work-dir=.ipynb_colab tutorials || (($?==$NO_TESTS_COLLECTED))
+        python3 -m pytest --ipynb-action=create-notebooks --collapse --work-dir=.ipynb_colab tutorials || (($?==$NO_TESTS_COLLECTED))
         find tutorials -type d -name .ipynb_colab -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
         rsync -avz --delete --include "*/" --include="*.ipynb" --exclude="*" tutorials ../open_in_colab/
       fem_on_colab_packages: |
@@ -62,7 +62,7 @@ jobs:
           git checkout "${{ (inputs || github.event.inputs).branch }}"
         fi
         NO_TESTS_COLLECTED=5
-        python3 -m pytest --ipynb-action=create-notebooks --tag-collapse --work-dir=.ipynb_kaggle tutorials || (($?==$NO_TESTS_COLLECTED))
+        python3 -m pytest --ipynb-action=create-notebooks --collapse --work-dir=.ipynb_kaggle tutorials || (($?==$NO_TESTS_COLLECTED))
         find tutorials -type d -name .ipynb_kaggle -exec rsync -avz --remove-source-files --include="*.ipynb" --exclude="*" {}/ {}/.. \;
         rsync -avz --delete --include "*/" --include="*.ipynb" --exclude="*" tutorials ../open_in_kaggle/
       fem_on_kaggle_packages: |
