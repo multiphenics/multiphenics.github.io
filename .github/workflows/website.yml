@@ -80,6 +80,7 @@ jobs:
             NOTEBOOKS_TO_RUN+=($(find tutorials -wholename $(echo ${PATTERN} | sed 's|\"||g')))
           done <<< $(printf "%s" "${{ matrix.notebook_pattern }}")
           mkdir -p _converted
+          export XDG_RUNTIME_DIR="/tmp"
           export DISPLAY=":99"
           Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
           for NOTEBOOK in "${NOTEBOOKS_TO_RUN[@]}"; do
