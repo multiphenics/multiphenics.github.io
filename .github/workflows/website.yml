@@ -56,7 +56,7 @@ jobs:
         run: |
           export DEBIAN_FRONTEND="noninteractive"
           apt update -y -q
-          apt install -y -qq rsync xvfb
+          apt install -y -qq libegl1 libgl1-mesa-dri rsync
       - name: Install multiphenicsx
         run: |
           python3 -m pip install --check-build-dependencies --no-build-isolation --verbose .[tutorials]
@@ -82,8 +82,6 @@ jobs:
           done <<< $(printf "%s" "${{ matrix.notebook_pattern }}")
           mkdir -p _converted
           export XDG_RUNTIME_DIR="/tmp"
-          export DISPLAY=":99"
-          Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
           for NOTEBOOK in "${NOTEBOOKS_TO_RUN[@]}"; do
             NOTEBOOK_DIRNAME=$(dirname "${NOTEBOOK}")
             NOTEBOOK_OUTPUT_DIRNAME=${GITHUB_WORKSPACE}/_converted/${NOTEBOOK_DIRNAME}

@@ -44,9 +44,6 @@ jobs:
         viskex%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current£--check-build-dependencies --no-build-isolation
       test_script: |
-        apt install -y -qq xvfb
-        export DISPLAY=":99"
-        Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
         python3 -m pytest --nbval open_in_colab/tutorials
         find open_in_colab -type l -name "*.ipynb" -exec bash -c 'for link; do target=$(readlink -f "$link"); [[ -f "$target" ]] && rm "$link" && mv "$target" "$link"; done' _ {} +
       publish_on: github@multiphenics/multiphenics.github.io@open-in-colab
@@ -77,9 +74,6 @@ jobs:
         viskex%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current£--check-build-dependencies --no-build-isolation
       test_script: |
-        apt install -y -qq xvfb
-        export DISPLAY=":99"
-        Xvfb $DISPLAY -screen 0 1024x768x24 > /dev/null 2>&1 &
         python3 -m pytest --nbval open_in_kaggle/tutorials
         find open_in_kaggle -type l -name "*.ipynb" -exec bash -c 'for link; do target=$(readlink -f "$link"); [[ -f "$target" ]] && rm "$link" && mv "$target" "$link"; done' _ {} +
       publish_on: github@multiphenics/multiphenics.github.io@open-in-kaggle
