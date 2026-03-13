@@ -107,7 +107,7 @@ jobs:
           done
         shell: bash
       - name: Store converted notebooks as artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: converted-notebooks-${{ matrix.backend }}
           path: _converted
@@ -174,7 +174,7 @@ jobs:
         shell: bash
       - name: Deploy to GitHub artifacts
         if: github.repository == 'multiphenics/multiphenics.github.io' && github.ref != 'refs/heads/main'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: website
           path: |
