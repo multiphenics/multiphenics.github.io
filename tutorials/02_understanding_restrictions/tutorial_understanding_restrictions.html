@@ -7857,6 +7857,7 @@ a.anchor-link {
 <span class="kn">import</span><span class="w"> </span><span class="nn">dolfinx.fem</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">dolfinx.io</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">dolfinx.mesh</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dolfinx.typing</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gmsh</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.collections</span>
@@ -7904,7 +7905,9 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">Mesh</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
+<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_mesh</span><span class="p">(</span>
+    <span class="n">mesh</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">Mesh</span><span class="p">[</span><span class="n">dolfinx</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">Real</span><span class="p">],</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Plot a mesh object on the provied (or, if None, the current) axes object."""</span>
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
@@ -7928,7 +7931,7 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_mesh_tags</span><span class="p">(</span>
-    <span class="n">mesh</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">Mesh</span><span class="p">,</span> <span class="n">mesh_tags</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">MeshTags</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">mesh</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">Mesh</span><span class="p">[</span><span class="n">dolfinx</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">Real</span><span class="p">],</span> <span class="n">mesh_tags</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">MeshTags</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Plot a mesh tags object on the provied (or, if None, the current) axes object."""</span>
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -7998,7 +8001,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_plot_dofmap</span><span class="p">(</span><span class="n">coordinates</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">],</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
+<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">_plot_dofmap</span><span class="p">(</span><span class="n">coordinates</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="n">dolfinx</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">Real</span><span class="p">],</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
     <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
     <span class="n">text_offset</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-2</span><span class="p">]</span>
@@ -8021,7 +8024,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_dofmap</span><span class="p">(</span><span class="n">V</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">FunctionSpace</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
+<div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_dofmap</span><span class="p">(</span><span class="n">V</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">FunctionSpace</span><span class="p">[</span><span class="n">dolfinx</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">Real</span><span class="p">],</span> <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Plot the DOFs in a function space object on the provied (or, if None, the current) axes object."""</span>
     <span class="n">coordinates</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">tabulate_dof_coordinates</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">decimals</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_plot_dofmap</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
@@ -8039,7 +8042,7 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_dofmap_restriction</span><span class="p">(</span>
-    <span class="n">V</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">FunctionSpace</span><span class="p">,</span> <span class="n">restriction</span><span class="p">:</span> <span class="n">multiphenicsx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">DofMapRestriction</span><span class="p">,</span>
+    <span class="n">V</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">FunctionSpace</span><span class="p">[</span><span class="n">dolfinx</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">Real</span><span class="p">],</span> <span class="n">restriction</span><span class="p">:</span> <span class="n">multiphenicsx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">DofMapRestriction</span><span class="p">,</span>
     <span class="n">ax</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">"""Plot the DOFs in a DofMapRestriction object on the provied (or, if None, the current) axes object."""</span>
@@ -8090,7 +8093,7 @@ a.anchor-link {
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">locate_dofs_by_polar_coordinates</span><span class="p">(</span>
     <span class="n">r</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
-    <span class="n">V</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">FunctionSpace</span><span class="p">,</span> <span class="n">restriction</span><span class="p">:</span> <span class="n">multiphenicsx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">DofMapRestriction</span>
+    <span class="n">V</span><span class="p">:</span> <span class="n">dolfinx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">FunctionSpace</span><span class="p">[</span><span class="n">dolfinx</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">Real</span><span class="p">],</span> <span class="n">restriction</span><span class="p">:</span> <span class="n">multiphenicsx</span><span class="o">.</span><span class="n">fem</span><span class="o">.</span><span class="n">DofMapRestriction</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">"""Determine which DOFs in a DofMapRestriction object are located at a point (written in polar coordinates)."""</span>
     <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="mf">0.</span><span class="p">]</span>
@@ -8205,16 +8208,10 @@ Info    : [ 40%] Meshing curve 3 (Line)
 Info    : [ 60%] Meshing curve 4 (Line)
 Info    : [ 70%] Meshing curve 5 (Line)
 Info    : [ 90%] Meshing curve 6 (Line)
-Info    : Done meshing 1D (Wall 0.000477275s, CPU 0.000987s)
+Info    : Done meshing 1D (Wall 0.000367396s, CPU 0.000578s)
 Info    : Meshing 2D...
 Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Info    : Done meshing 2D (Wall 0.000260468s, CPU 0.000291s)
+Info    : Done meshing 2D (Wall 0.000243438s, CPU 0.000253s)
 Info    : 7 nodes 18 elements
 </pre>
 </div>
