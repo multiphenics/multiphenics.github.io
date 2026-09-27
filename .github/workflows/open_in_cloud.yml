@@ -43,6 +43,7 @@ jobs:
         fenicsx==development-real@current$dolfinx
       pip_packages: |
         viskex%multiphenicsx
+        scikit-build-core[pyproject]$%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current£--check-build-dependencies --no-build-isolation
       test_script: |
         python3 -m pytest --nbval open_in_colab/tutorials
@@ -74,6 +75,7 @@ jobs:
         fenicsx==development-real@current$dolfinx
       pip_packages: |
         viskex%multiphenicsx
+        scikit-build-core[pyproject]$%multiphenicsx
         multiphenicsx@https://github.com/multiphenics/multiphenicsx.git@current£--check-build-dependencies --no-build-isolation
       test_script: |
         python3 -m pytest --nbval open_in_kaggle/tutorials
